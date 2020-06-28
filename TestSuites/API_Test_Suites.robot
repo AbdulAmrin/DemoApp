@@ -88,6 +88,14 @@ Get Users Information After Authentication
     Run Keyword If  '${Status}'!= 'SUCCESS'  FAIL  User Information Not Present!
     Validate User Details  ${Response}  ${FirstName_Expected}
     
-    
+Update User Information with Empty Fields After Authentication
+    ${Response}  Get Response   ${URL}/api/auth/token  ${Username}  ${Password}
+    ${Status}  Validate Authentication Status  ${Response}
+    Run Keyword If  '${Status}'!= 'SUCCESS'  FAIL  Authentication is unsuccessful!
+    ${Token}  Fetch Authentication Token  ${Response}
+    ${FirstName_Expected}  Randomize User Data
+    ${Response}  Update Users  ${URL}/api/users/${Username}   ${Token}   {"firstname":""}
+    Validate User Updation Status  ${Response}
+    Validate Updated Details  ${Username}  ${Token}  ${EMPTY}
 
     

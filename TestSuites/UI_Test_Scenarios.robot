@@ -30,8 +30,16 @@ Verify Logout Functionality After Login
     
 Register with Invalid userDetails
     [Documentation]  Navigate to register page, Input invalid user details,Validate error message
+    ${Value}  Randomize Value
     Click Register Link
-    Input Invalid Details To Register  i  i  i  i  1
+    Input Invalid Details To Register  ${Value}  i  i  i  1
     Select Submit
     Validate Error Mesage  Password should have min: x characters in length
+ 
+Register with Existing userDetails  
+    [Documentation]  Navigate to register page, Input already registered user details,Validate error message
+    Click Register Link
+    Input Invalid Details To Register  ${Username}  i  i  i  1
+    Select Submit
+    Validate Error Mesage  User ${Username} is already registered.
     
