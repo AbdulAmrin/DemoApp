@@ -120,3 +120,16 @@ Add proper comments if the logic is too complicated.
 Breakdown the complex code logic into a simplified level.
 ```
 
+* How do you plan what kind of approach you take for test automation - what libraries to use, how does it work in couple of years, how to make it easy to maintain, etc? What are the main points to consider? 
+
+```
+Suppose while doing browser level automation SeleniumLibrary is one of the major external libraries used to write automation scripts.
+For mobile automation we use Appium Library, API Automation we use RequestsLibrary.
+So depending on each testing types external libraries will vary. 
+In order to maintain the automation scripts for a longer period ensure whether the framework is version compatible with the external libraries.
+If certain versions are not compatible roll back to stable older versions or write customised python programs and create a library wrapper on top of it.
+Ensure you follow proper coding standards like Page Object Design Patterns so that we can maintain the scripts with ease on a long term basis.
+Ensure each test cases are self contained and order independent while running them in parallel.
+Seperate test cases with group tags if certain test cases have data dependencies.
+Paramaters like Browser configurations, Environment varibales for URL..etc should be accepted through command line which makes it easier to run the scripts in CI servers like Jenkins,CircleCi,TeamCity,GitHub Actions..etc
+```
