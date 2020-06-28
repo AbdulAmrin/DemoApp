@@ -133,3 +133,19 @@ Ensure each test cases are self contained and order independent while running th
 Seperate test cases with group tags if certain test cases have data dependencies.
 Paramaters like Browser configurations, Environment varibales for URL..etc should be accepted through command line which makes it easier to run the scripts in CI servers like Jenkins,CircleCi,TeamCity,GitHub Actions..etc
 ```
+
+* Code testability, how do you enforce it? 
+
+```
+Ensure unit testing and integration testing is performed in early stages of Software Development Lifecycle.
+```
+
+* How do you make sure that the product is testable? 
+
+```
+Categorise the testing types based on your understanding about the product and associate the testable feature to each of these testing types.Look for automation feasibility.
+If it can be automated try to cover both positive and negative scenarios by improving the automation coverage.
+Cover functionality tests, usability tests, unit tests, integration tests, performance tests, security tests..etc
+Perform Browser level automation,API level automation and data validation from database.
+```
+
