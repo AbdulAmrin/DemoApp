@@ -98,3 +98,25 @@ Random values are used for each parameter during user registration
 These values are then verified after user login.
 For API Automation, requests package is used and API methods are implemented in Apimethods.py file
 ```
+
+* How do you review code? 
+
+```
+Code is reviewed mainly to understand what changes has taken place.
+We can use staic code analyzer like SonarQube to inspect code quality.
+Based on that tester can cover unit and integration tests for those.
+Ask questions to developers if certain functionalities are not clear, provide comments and ask them why did they implement in such fashion.
+Ask the developer to walk through the steps and make you understand the desired functionality or acceptance criteria.
+Try to understand for each section of the application code what business logic is implemented.
+```
+
+* How do you enforce coding standards? 
+
+```
+Request the developer to add meaningful function/method and variable names.
+Ensure code re-usability with reusable components without impacting performance degradation
+Add exception handling in case of any failures with understandable error messages inorder to debug.
+Add proper comments if the logic is too complicated.
+Breakdown the complex code logic into a simplified level.
+```
+
