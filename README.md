@@ -143,7 +143,8 @@ Ensure unit testing and integration testing is performed in early stages of Soft
 * How do you make sure that the product is testable? 
 
 ```
-Categorise the testing types based on your understanding about the product and associate the testable feature to each of these testing types.Look for automation feasibility.
+Categorise the testing types based on your understanding about the product and associate the testable feature to each of these testing types.
+Look for automation feasibility.
 If it can be automated try to cover both positive and negative scenarios by improving the automation coverage.
 Cover functionality tests, usability tests, unit tests, integration tests, performance tests, security tests..etc
 Perform Browser level automation,API level automation and data validation from database.
