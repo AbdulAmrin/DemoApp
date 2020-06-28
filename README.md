@@ -28,4 +28,5 @@
 * User Details are randomized using `String` Library 
 * Username,Password (API) and Browser variables can be passed through command line using :-
 ```cd TestSuites
-robot -v Browser:Chrome -v Username:test -v Password:test *.robot ```
+robot -v Browser:Chrome -v Username:test -v Password:test *.robot 
+```
