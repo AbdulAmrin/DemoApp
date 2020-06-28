@@ -23,7 +23,7 @@
 
 * Using page Object design pattern for UI Automation
 * API methods are implemented using requests module 
-* Apimethods.p file has necessary methods to drive API Automation
+* Apimethods.py file has necessary methods to drive API Automation
 * Unit test for API's are implemented as part of test cases through Acceptance Criteria
 * User Details are randomized using `String` Library 
 * Username,Password (API) and Browser variables can be passed through command line using :-
@@ -77,4 +77,24 @@ Through automation we can run browser level tests,API level tests ,query the Dat
 
 ```
 Around 3 hours
+```
+
+* Instructions how to run it and short description of components, including external libraries 
+
+```
+pip install robotframework
+pip install robotframework-seleniumlibrary
+pip install requests
+pip install jsonpath
+
+Clone the git repository 
+Open TestSuites Folder through terminal 
+Run below command:-
+
+robot -v Browser:Chrome -v Username:${Username} -v Password:${Password} *.robot  
+
+For UI Automation, SeleniumLibrary is used as external library.
+Random values are used for each parameter during user registration
+These values are then verified after user login.
+For API Automation, requests package is used and API methods are implemented in Apimethods.py file
 ```
