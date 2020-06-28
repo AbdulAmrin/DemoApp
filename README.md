@@ -41,9 +41,17 @@ robot -v Browser:Chrome -v Username:test -v Password:test *.robot
  Attached to github repository
   ``` 
   
-* Report of found issues/bugs 
+* Report of found issues/bugs/Exploratory testing report
+``` 
+1.Phone no. should accept only numbers
+2.Password should meet certain complexity requirements
+3.Username should meet certain length constraints
+4.Phone number should meet certain length constraints
+5.Cannot update user details through PUT method (data.iteritems has to be replaced with data.items inorder to be Python 3.7 compatible)
+
+  ``` 
+
 * Answers to the questions related testing and testability 
-* Exploratory Testing Report  
 * Tell us what improvement would you propose for the app 
 * If you would be given a week to do quality assurance for this product, briefly plan the tasks based on your skills, knowledge and expertise 
 
