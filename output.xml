@@ -1,0 +1,1218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20200628 20:36:34.855" generator="Robot 2.9 (Python 2.7.16 on darwin)">
+<suite source="/Users/asubair/eclipse-workspace/APIAutomation" id="s1" name="APIAutomation">
+<suite source="/Users/asubair/eclipse-workspace/APIAutomation/TestSuites" id="s1-s1" name="TestSuites">
+<suite source="/Users/asubair/eclipse-workspace/APIAutomation/TestSuites/API_Test_Suites.robot" id="s1-s1-s1" name="API Test Suites">
+<test id="s1-s1-s1-t1" name="Review Users Registered in System">
+<kw name="Get Response" library="Apimethods">
+<arguments>
+<arg>${URL}/api/auth/token</arg>
+<arg>${Username}</arg>
+<arg>${Password}</arg>
+</arguments>
+<assign>
+<var>${Response}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.331" level="INFO">${Response} = {"status":"SUCCESS","token":"Nzc3NzY5ODUxMjQwNzM4NjA5MjkwMjkxOTQxMDAzMTM1MjU5Mjc="}
+</msg>
+<status status="PASS" endtime="20200628 20:36:35.332" starttime="20200628 20:36:35.285"></status>
+</kw>
+<kw name="Validate Authentication Status">
+<arguments>
+<arg>${Response}</arg>
+</arguments>
+<assign>
+<var>${Status}</var>
+</assign>
+<kw name="Extract Response Content" library="Apimethods">
+<arguments>
+<arg>${Response}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${Status}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.334" level="INFO">${Status} = [u'SUCCESS']</msg>
+<status status="PASS" endtime="20200628 20:36:35.334" starttime="20200628 20:36:35.333"></status>
+</kw>
+<msg timestamp="20200628 20:36:35.335" level="INFO">${Status} = SUCCESS</msg>
+<status status="PASS" endtime="20200628 20:36:35.335" starttime="20200628 20:36:35.333"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${Status}'!= 'SUCCESS'</arg>
+<arg>FAIL</arg>
+<arg>Authentication is unsuccessful!</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:35.336" starttime="20200628 20:36:35.335"></status>
+</kw>
+<kw name="Fetch Authentication Token">
+<arguments>
+<arg>${Response}</arg>
+</arguments>
+<assign>
+<var>${Token}</var>
+</assign>
+<kw name="Extract Response Content" library="Apimethods">
+<arguments>
+<arg>${Response}</arg>
+<arg>token</arg>
+</arguments>
+<assign>
+<var>${Token}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.338" level="INFO">${Token} = [u'Nzc3NzY5ODUxMjQwNzM4NjA5MjkwMjkxOTQxMDAzMTM1MjU5Mjc=']</msg>
+<status status="PASS" endtime="20200628 20:36:35.338" starttime="20200628 20:36:35.337"></status>
+</kw>
+<msg timestamp="20200628 20:36:35.339" level="INFO">${Token} = Nzc3NzY5ODUxMjQwNzM4NjA5MjkwMjkxOTQxMDAzMTM1MjU5Mjc=</msg>
+<status status="PASS" endtime="20200628 20:36:35.339" starttime="20200628 20:36:35.337"></status>
+</kw>
+<kw name="Get Users" library="Apimethods">
+<arguments>
+<arg>${URL}/api/users</arg>
+<arg>${Token}</arg>
+</arguments>
+<assign>
+<var>${Response}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.352" level="INFO">${Response} = {"payload":[" ","   ","1","Username_02549","Username_20763","Username_34689","Username_43130","Username_52468","Username_77115","Username_78864","Username_d48Hw","Username_foh9a","deded","test","user"...</msg>
+<status status="PASS" endtime="20200628 20:36:35.352" starttime="20200628 20:36:35.339"></status>
+</kw>
+<kw name="Validate Registered Users">
+<arguments>
+<arg>${Response}</arg>
+<arg>${Username}</arg>
+</arguments>
+<kw name="Extract Response Content" library="Apimethods">
+<arguments>
+<arg>${Response}</arg>
+<arg>payload</arg>
+</arguments>
+<assign>
+<var>${Users}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.354" level="INFO">${Users} = [[u' ', u'   ', u'1', u'Username_02549', u'Username_20763', u'Username_34689', u'Username_43130', u'Username_52468', u'Username_77115', u'Username_78864', u'Username_d48Hw', u'Username_foh9a', u'deded...</msg>
+<status status="PASS" endtime="20200628 20:36:35.354" starttime="20200628 20:36:35.353"></status>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>List Should Contain Value</arg>
+<arg>${Users[0]}</arg>
+<arg>${Username}</arg>
+</arguments>
+<assign>
+<var>${Status}</var>
+</assign>
+<kw name="List Should Contain Value" library="Collections">
+<doc>Fails if the ``value`` is not found from ``list``.</doc>
+<arguments>
+<arg>${Users[0]}</arg>
+<arg>${Username}</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:35.356" starttime="20200628 20:36:35.355"></status>
+</kw>
+<msg timestamp="20200628 20:36:35.356" level="INFO">${Status} = True</msg>
+<status status="PASS" endtime="20200628 20:36:35.356" starttime="20200628 20:36:35.354"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Status}</arg>
+<arg>Log</arg>
+<arg>Users is registered</arg>
+<arg>ELSE</arg>
+<arg>FAIL</arg>
+<arg>User is not present!</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Users is registered</arg>
+</arguments>
+<msg timestamp="20200628 20:36:35.357" level="INFO">Users is registered</msg>
+<status status="PASS" endtime="20200628 20:36:35.357" starttime="20200628 20:36:35.357"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:35.358" starttime="20200628 20:36:35.356"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:35.358" starttime="20200628 20:36:35.353"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:35.358" critical="yes" starttime="20200628 20:36:35.284"></status>
+</test>
+<test id="s1-s1-s1-t2" name="Update User Information After Authentication">
+<kw name="Get Response" library="Apimethods">
+<arguments>
+<arg>${URL}/api/auth/token</arg>
+<arg>${Username}</arg>
+<arg>${Password}</arg>
+</arguments>
+<assign>
+<var>${Response}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.396" level="INFO">${Response} = {"status":"SUCCESS","token":"NzQ1ODYxODc0MDE3Mzg1NDEwODM4ODA2MTM3MTIzODAxMzAwNg=="}
+</msg>
+<status status="PASS" endtime="20200628 20:36:35.396" starttime="20200628 20:36:35.359"></status>
+</kw>
+<kw name="Validate Authentication Status">
+<arguments>
+<arg>${Response}</arg>
+</arguments>
+<assign>
+<var>${Status}</var>
+</assign>
+<kw name="Extract Response Content" library="Apimethods">
+<arguments>
+<arg>${Response}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${Status}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.398" level="INFO">${Status} = [u'SUCCESS']</msg>
+<status status="PASS" endtime="20200628 20:36:35.398" starttime="20200628 20:36:35.397"></status>
+</kw>
+<msg timestamp="20200628 20:36:35.398" level="INFO">${Status} = SUCCESS</msg>
+<status status="PASS" endtime="20200628 20:36:35.398" starttime="20200628 20:36:35.396"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${Status}'!= 'SUCCESS'</arg>
+<arg>FAIL</arg>
+<arg>Authentication is unsuccessful!</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:35.399" starttime="20200628 20:36:35.398"></status>
+</kw>
+<kw name="Fetch Authentication Token">
+<arguments>
+<arg>${Response}</arg>
+</arguments>
+<assign>
+<var>${Token}</var>
+</assign>
+<kw name="Extract Response Content" library="Apimethods">
+<arguments>
+<arg>${Response}</arg>
+<arg>token</arg>
+</arguments>
+<assign>
+<var>${Token}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.401" level="INFO">${Token} = [u'NzQ1ODYxODc0MDE3Mzg1NDEwODM4ODA2MTM3MTIzODAxMzAwNg==']</msg>
+<status status="PASS" endtime="20200628 20:36:35.401" starttime="20200628 20:36:35.400"></status>
+</kw>
+<msg timestamp="20200628 20:36:35.401" level="INFO">${Token} = NzQ1ODYxODc0MDE3Mzg1NDEwODM4ODA2MTM3MTIzODAxMzAwNg==</msg>
+<status status="PASS" endtime="20200628 20:36:35.401" starttime="20200628 20:36:35.400"></status>
+</kw>
+<kw name="Randomize User Data">
+<assign>
+<var>${FirstName_Expected}</var>
+</assign>
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>8</arg>
+<arg>[LETTERS][NUMBERS]</arg>
+</arguments>
+<assign>
+<var>${Random_String}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.402" level="INFO">${Random_String} = rgpmqwrM</msg>
+<status status="PASS" endtime="20200628 20:36:35.402" starttime="20200628 20:36:35.402"></status>
+</kw>
+<msg timestamp="20200628 20:36:35.403" level="INFO">${FirstName_Expected} = rgpmqwrM</msg>
+<status status="PASS" endtime="20200628 20:36:35.403" starttime="20200628 20:36:35.401"></status>
+</kw>
+<kw name="Update Users" library="Apimethods">
+<arguments>
+<arg>${URL}/api/users/${Username}</arg>
+<arg>${Token}</arg>
+<arg>{"firstname":"${FirstName_Expected}"}</arg>
+</arguments>
+<assign>
+<var>${Response}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.410" level="INFO">${Response} = {"message":"Updated","status":"SUCCESS"}
+</msg>
+<status status="PASS" endtime="20200628 20:36:35.410" starttime="20200628 20:36:35.403"></status>
+</kw>
+<kw name="Validate User Updation Status">
+<arguments>
+<arg>${Response}</arg>
+</arguments>
+<kw name="Extract Response Content" library="Apimethods">
+<arguments>
+<arg>${Response}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${Update_Message}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.411" level="INFO">${Update_Message} = [u'Updated']</msg>
+<status status="PASS" endtime="20200628 20:36:35.412" starttime="20200628 20:36:35.411"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${Update_Message[0]}</arg>
+<arg>Updated</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:35.412" starttime="20200628 20:36:35.412"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:35.413" starttime="20200628 20:36:35.410"></status>
+</kw>
+<kw name="Validate Updated Details">
+<arguments>
+<arg>${Username}</arg>
+<arg>${Token}</arg>
+<arg>${FirstName_Expected}</arg>
+</arguments>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${FirstName_Expected}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:35.414" level="INFO">${FirstName_Expected} = rgpmqwrM</msg>
+<status status="PASS" endtime="20200628 20:36:35.414" starttime="20200628 20:36:35.414"></status>
+</kw>
+<kw name="Get Users" library="Apimethods">
+<arguments>
+<arg>${URL}/api/users/${Username}</arg>
+<arg>${Token}</arg>
+</arguments>
+<assign>
+<var>${Response}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.421" level="INFO">${Response} = {"message":"retrieval succesful","payload":{"firstname":"rgpmqwrM","lastname":"test","phone":"12345"},"status":"SUCCESS"}
+</msg>
+<status status="PASS" endtime="20200628 20:36:35.421" starttime="20200628 20:36:35.415"></status>
+</kw>
+<kw name="Validate User Information Status">
+<arguments>
+<arg>${Response}</arg>
+</arguments>
+<assign>
+<var>${Status}</var>
+</assign>
+<kw name="Extract Response Content" library="Apimethods">
+<arguments>
+<arg>${Response}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${Status}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.422" level="INFO">${Status} = [u'SUCCESS']</msg>
+<status status="PASS" endtime="20200628 20:36:35.422" starttime="20200628 20:36:35.422"></status>
+</kw>
+<msg timestamp="20200628 20:36:35.423" level="INFO">${Status} = SUCCESS</msg>
+<status status="PASS" endtime="20200628 20:36:35.423" starttime="20200628 20:36:35.421"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${Status}'!= 'SUCCESS'</arg>
+<arg>FAIL</arg>
+<arg>User Information Not Present!</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:35.424" starttime="20200628 20:36:35.423"></status>
+</kw>
+<kw name="Validate User Details">
+<arguments>
+<arg>${Response}</arg>
+<arg>${FirstName_Expected}</arg>
+</arguments>
+<kw name="Extract Response Content" library="Apimethods">
+<arguments>
+<arg>${Response}</arg>
+<arg>payload</arg>
+</arguments>
+<assign>
+<var>${User_Data}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.426" level="INFO">${User_Data} = [{u'lastname': u'test', u'firstname': u'rgpmqwrM', u'phone': u'12345'}]</msg>
+<status status="PASS" endtime="20200628 20:36:35.426" starttime="20200628 20:36:35.425"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${User_Data[0]}</arg>
+<arg>lastname</arg>
+</arguments>
+<assign>
+<var>${Lastname_Actual}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.427" level="INFO">${Lastname_Actual} = test</msg>
+<status status="PASS" endtime="20200628 20:36:35.427" starttime="20200628 20:36:35.426"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${User_Data[0]}</arg>
+<arg>firstname</arg>
+</arguments>
+<assign>
+<var>${Firstname_Actual}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.428" level="INFO">${Firstname_Actual} = rgpmqwrM</msg>
+<status status="PASS" endtime="20200628 20:36:35.429" starttime="20200628 20:36:35.427"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${User_Data[0]}</arg>
+<arg>phone</arg>
+</arguments>
+<assign>
+<var>${Phone_Number_Actual}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.431" level="INFO">${Phone_Number_Actual} = 12345</msg>
+<status status="PASS" endtime="20200628 20:36:35.431" starttime="20200628 20:36:35.430"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${Firstname_Actual}</arg>
+<arg>${FirstName_Expected}</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:35.433" starttime="20200628 20:36:35.432"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:35.433" starttime="20200628 20:36:35.424"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:35.433" starttime="20200628 20:36:35.413"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:35.433" critical="yes" starttime="20200628 20:36:35.359"></status>
+</test>
+<test id="s1-s1-s1-t3" name="Get Users Information After Authentication">
+<kw name="Get Response" library="Apimethods">
+<arguments>
+<arg>${URL}/api/auth/token</arg>
+<arg>${Username}</arg>
+<arg>${Password}</arg>
+</arguments>
+<assign>
+<var>${Response}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.469" level="INFO">${Response} = {"status":"SUCCESS","token":"NDk5MTYzNDA0MjczMTA1Nzg5Mzg5MDkzODQ2NjcwMTA4NTU2MjI="}
+</msg>
+<status status="PASS" endtime="20200628 20:36:35.469" starttime="20200628 20:36:35.434"></status>
+</kw>
+<kw name="Validate Authentication Status">
+<arguments>
+<arg>${Response}</arg>
+</arguments>
+<assign>
+<var>${Status}</var>
+</assign>
+<kw name="Extract Response Content" library="Apimethods">
+<arguments>
+<arg>${Response}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${Status}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.471" level="INFO">${Status} = [u'SUCCESS']</msg>
+<status status="PASS" endtime="20200628 20:36:35.471" starttime="20200628 20:36:35.470"></status>
+</kw>
+<msg timestamp="20200628 20:36:35.471" level="INFO">${Status} = SUCCESS</msg>
+<status status="PASS" endtime="20200628 20:36:35.472" starttime="20200628 20:36:35.470"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${Status}'!= 'SUCCESS'</arg>
+<arg>FAIL</arg>
+<arg>Authentication is unsuccessful!</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:35.473" starttime="20200628 20:36:35.472"></status>
+</kw>
+<kw name="Fetch Authentication Token">
+<arguments>
+<arg>${Response}</arg>
+</arguments>
+<assign>
+<var>${Token}</var>
+</assign>
+<kw name="Extract Response Content" library="Apimethods">
+<arguments>
+<arg>${Response}</arg>
+<arg>token</arg>
+</arguments>
+<assign>
+<var>${Token}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.474" level="INFO">${Token} = [u'NDk5MTYzNDA0MjczMTA1Nzg5Mzg5MDkzODQ2NjcwMTA4NTU2MjI=']</msg>
+<status status="PASS" endtime="20200628 20:36:35.474" starttime="20200628 20:36:35.474"></status>
+</kw>
+<msg timestamp="20200628 20:36:35.475" level="INFO">${Token} = NDk5MTYzNDA0MjczMTA1Nzg5Mzg5MDkzODQ2NjcwMTA4NTU2MjI=</msg>
+<status status="PASS" endtime="20200628 20:36:35.475" starttime="20200628 20:36:35.473"></status>
+</kw>
+<kw name="Get Users" library="Apimethods">
+<arguments>
+<arg>${URL}/api/users/${Username}</arg>
+<arg>${Token}</arg>
+</arguments>
+<assign>
+<var>${Response}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.481" level="INFO">${Response} = {"message":"retrieval succesful","payload":{"firstname":"rgpmqwrM","lastname":"test","phone":"12345"},"status":"SUCCESS"}
+</msg>
+<status status="PASS" endtime="20200628 20:36:35.481" starttime="20200628 20:36:35.475"></status>
+</kw>
+<kw name="Validate User Information Status">
+<arguments>
+<arg>${Response}</arg>
+</arguments>
+<assign>
+<var>${Status}</var>
+</assign>
+<kw name="Extract Response Content" library="Apimethods">
+<arguments>
+<arg>${Response}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${Status}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.482" level="INFO">${Status} = [u'SUCCESS']</msg>
+<status status="PASS" endtime="20200628 20:36:35.482" starttime="20200628 20:36:35.482"></status>
+</kw>
+<msg timestamp="20200628 20:36:35.483" level="INFO">${Status} = SUCCESS</msg>
+<status status="PASS" endtime="20200628 20:36:35.483" starttime="20200628 20:36:35.481"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${Status}'!= 'SUCCESS'</arg>
+<arg>FAIL</arg>
+<arg>User Information Not Present!</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:35.484" starttime="20200628 20:36:35.483"></status>
+</kw>
+<kw name="Validate User Details">
+<arguments>
+<arg>${Response}</arg>
+<arg>${FirstName_Expected}</arg>
+</arguments>
+<kw name="Extract Response Content" library="Apimethods">
+<arguments>
+<arg>${Response}</arg>
+<arg>payload</arg>
+</arguments>
+<assign>
+<var>${User_Data}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.486" level="INFO">${User_Data} = [{u'lastname': u'test', u'firstname': u'rgpmqwrM', u'phone': u'12345'}]</msg>
+<status status="PASS" endtime="20200628 20:36:35.486" starttime="20200628 20:36:35.485"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${User_Data[0]}</arg>
+<arg>lastname</arg>
+</arguments>
+<assign>
+<var>${Lastname_Actual}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.487" level="INFO">${Lastname_Actual} = test</msg>
+<status status="PASS" endtime="20200628 20:36:35.487" starttime="20200628 20:36:35.486"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${User_Data[0]}</arg>
+<arg>firstname</arg>
+</arguments>
+<assign>
+<var>${Firstname_Actual}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.488" level="INFO">${Firstname_Actual} = rgpmqwrM</msg>
+<status status="PASS" endtime="20200628 20:36:35.488" starttime="20200628 20:36:35.487"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${User_Data[0]}</arg>
+<arg>phone</arg>
+</arguments>
+<assign>
+<var>${Phone_Number_Actual}</var>
+</assign>
+<msg timestamp="20200628 20:36:35.489" level="INFO">${Phone_Number_Actual} = 12345</msg>
+<status status="PASS" endtime="20200628 20:36:35.489" starttime="20200628 20:36:35.488"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${Firstname_Actual}</arg>
+<arg>${FirstName_Expected}</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:35.490" starttime="20200628 20:36:35.489"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:35.490" starttime="20200628 20:36:35.484"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:35.490" critical="yes" starttime="20200628 20:36:35.434"></status>
+</test>
+<doc>API Test Scenarios</doc>
+<status status="PASS" endtime="20200628 20:36:35.491" starttime="20200628 20:36:34.915"></status>
+</suite>
+<suite source="/Users/asubair/eclipse-workspace/APIAutomation/TestSuites/UI_Test_Scenarios.robot" id="s1-s1-s2" name="UI Test Scenarios">
+<test id="s1-s1-s2-t1" name="Review User Information From Main Menu">
+<kw type="setup" name="Launch Browser" library="CommonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${URL}</arg>
+<arg>${Browser}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:35.662" level="INFO">Opening browser 'safari' to base url 'http://localhost:8080'.</msg>
+<status status="PASS" endtime="20200628 20:36:50.381" starttime="20200628 20:36:35.661"></status>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" endtime="20200628 20:36:50.395" starttime="20200628 20:36:50.383"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:50.397" starttime="20200628 20:36:35.660"></status>
+</kw>
+<kw name="Register through web portal" library="RegistrationPage">
+<assign>
+<var>${UserDetails}</var>
+</assign>
+<kw name="Click Register Link" library="RegistrationPage">
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` appears on current page.</doc>
+<arguments>
+<arg>${Register_Button}</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:50.437" starttime="20200628 20:36:50.404"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${Register_Button}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:50.439" level="INFO">Clicking element 'css=[href*='register']'.</msg>
+<status status="PASS" endtime="20200628 20:36:50.459" starttime="20200628 20:36:50.438"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:50.459" starttime="20200628 20:36:50.401"></status>
+</kw>
+<kw name="Input Valid Details To Register" library="RegistrationPage">
+<assign>
+<var>${UserDetails}</var>
+</assign>
+<kw name="Randomize Value" library="CommonKeywords">
+<assign>
+<var>${Value}</var>
+</assign>
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>5</arg>
+<arg>[NUMBERS]</arg>
+</arguments>
+<assign>
+<var>${Value}</var>
+</assign>
+<msg timestamp="20200628 20:36:50.463" level="INFO">${Value} = 26024</msg>
+<status status="PASS" endtime="20200628 20:36:50.464" starttime="20200628 20:36:50.462"></status>
+</kw>
+<msg timestamp="20200628 20:36:50.465" level="INFO">${Value} = 26024</msg>
+<status status="PASS" endtime="20200628 20:36:50.465" starttime="20200628 20:36:50.461"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>Username_${Value}</arg>
+</arguments>
+<assign>
+<var>${Username}</var>
+</assign>
+<msg timestamp="20200628 20:36:50.467" level="INFO">${Username} = Username_26024</msg>
+<status status="PASS" endtime="20200628 20:36:50.468" starttime="20200628 20:36:50.466"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>Password_${Value}</arg>
+</arguments>
+<assign>
+<var>${Password}</var>
+</assign>
+<msg timestamp="20200628 20:36:50.469" level="INFO">${Password} = Password_26024</msg>
+<status status="PASS" endtime="20200628 20:36:50.470" starttime="20200628 20:36:50.468"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${Username}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:50.473" level="INFO">${Username} = Username_26024</msg>
+<status status="PASS" endtime="20200628 20:36:50.474" starttime="20200628 20:36:50.471"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${Password}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:50.477" level="INFO">${Password} = Password_26024</msg>
+<status status="PASS" endtime="20200628 20:36:50.478" starttime="20200628 20:36:50.476"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Username_Locator}</arg>
+<arg>Username_${Value}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:50.480" level="INFO">Typing text 'Username_26024' into text field 'username'.</msg>
+<status status="PASS" endtime="20200628 20:36:50.718" starttime="20200628 20:36:50.479"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Password_Locator}</arg>
+<arg>Password_${Value}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:50.719" level="INFO">Typing text 'Password_26024' into text field 'password'.</msg>
+<status status="PASS" endtime="20200628 20:36:50.875" starttime="20200628 20:36:50.719"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Firstname_Locator}</arg>
+<arg>Firstname_${Value}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:50.876" level="INFO">Typing text 'Firstname_26024' into text field 'firstname'.</msg>
+<status status="PASS" endtime="20200628 20:36:51.037" starttime="20200628 20:36:50.875"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Lastname_Locator}</arg>
+<arg>Lastname_${Value}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:51.039" level="INFO">Typing text 'Lastname_26024' into text field 'lastname'.</msg>
+<status status="PASS" endtime="20200628 20:36:51.202" starttime="20200628 20:36:51.038"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Phoneno_Locator}</arg>
+<arg>12345${Value}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:51.203" level="INFO">Typing text '1234526024' into text field 'phone'.</msg>
+<status status="PASS" endtime="20200628 20:36:51.307" starttime="20200628 20:36:51.203"></status>
+</kw>
+<msg timestamp="20200628 20:36:51.308" level="INFO">${UserDetails} = [u'Username_26024', u'Firstname_26024', u'Lastname_26024', u'1234526024']</msg>
+<status status="PASS" endtime="20200628 20:36:51.309" starttime="20200628 20:36:50.460"></status>
+</kw>
+<kw name="Select Submit" library="CommonKeywords">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${Submit_Button}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:51.311" level="INFO">Clicking element 'css=[type='submit']'.</msg>
+<status status="PASS" endtime="20200628 20:36:51.357" starttime="20200628 20:36:51.310"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:51.358" starttime="20200628 20:36:51.309"></status>
+</kw>
+<msg timestamp="20200628 20:36:51.358" level="INFO">${UserDetails} = [u'Username_26024', u'Firstname_26024', u'Lastname_26024', u'1234526024']</msg>
+<status status="PASS" endtime="20200628 20:36:51.359" starttime="20200628 20:36:50.398"></status>
+</kw>
+<kw name="Login" library="LoginPage">
+<kw name="Click Login Link" library="LoginPage">
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` appears on current page.</doc>
+<arguments>
+<arg>${Login_Button}</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:51.365" starttime="20200628 20:36:51.360"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${Login_Button}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:51.366" level="INFO">Clicking element 'css=[href*='login']'.</msg>
+<status status="PASS" endtime="20200628 20:36:51.381" starttime="20200628 20:36:51.365"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:51.382" starttime="20200628 20:36:51.360"></status>
+</kw>
+<kw name="Input Credentials" library="LoginPage">
+<arguments>
+<arg>${Username}</arg>
+<arg>${Password}</arg>
+</arguments>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Username_Locator}</arg>
+<arg>${Username}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:51.384" level="INFO">Typing text 'Username_26024' into text field 'username'.</msg>
+<status status="PASS" endtime="20200628 20:36:51.569" starttime="20200628 20:36:51.384"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Password_Locator}</arg>
+<arg>${Password}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:51.571" level="INFO">Typing text 'Password_26024' into text field 'password'.</msg>
+<status status="PASS" endtime="20200628 20:36:51.719" starttime="20200628 20:36:51.570"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:51.720" starttime="20200628 20:36:51.382"></status>
+</kw>
+<kw name="Select Submit" library="CommonKeywords">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${Submit_Button}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:51.722" level="INFO">Clicking element 'css=[type='submit']'.</msg>
+<status status="PASS" endtime="20200628 20:36:51.751" starttime="20200628 20:36:51.721"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:51.752" starttime="20200628 20:36:51.720"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:51.753" starttime="20200628 20:36:51.359"></status>
+</kw>
+<kw name="Validate user Information" library="UserPage">
+<arguments>
+<arg>${UserDetails[0]}</arg>
+<arg>${UserDetails[1]}</arg>
+<arg>${UserDetails[2]}</arg>
+<arg>${UserDetails[3]}</arg>
+</arguments>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<doc>Waits until ``text`` appears on current page.</doc>
+<arguments>
+<arg>User Information</arg>
+<arg>20s</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:51.970" starttime="20200628 20:36:51.755"></status>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+<arg>${Username}</arg>
+<arg>${Firstname}</arg>
+<arg>${Lastname}</arg>
+<arg>${Phoneno:}</arg>
+</arguments>
+<assign>
+<var>@{List}</var>
+</assign>
+<msg timestamp="20200628 20:36:51.973" level="INFO">@{List} = [ Username_26024 | Firstname_26024 | Lastname_26024 | 1234526024 ]</msg>
+<status status="PASS" endtime="20200628 20:36:51.973" starttime="20200628 20:36:51.971"></status>
+</kw>
+<kw type="for" name="${ELEMENT} IN [ @{List} ]">
+<kw type="foritem" name="${ELEMENT} = Username_26024">
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:51.983" level="INFO">Current page contains text 'Username_26024'.</msg>
+<status status="PASS" endtime="20200628 20:36:51.984" starttime="20200628 20:36:51.975"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:51.984" starttime="20200628 20:36:51.974"></status>
+</kw>
+<kw type="foritem" name="${ELEMENT} = Firstname_26024">
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:51.993" level="INFO">Current page contains text 'Firstname_26024'.</msg>
+<status status="PASS" endtime="20200628 20:36:51.993" starttime="20200628 20:36:51.985"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:51.994" starttime="20200628 20:36:51.985"></status>
+</kw>
+<kw type="foritem" name="${ELEMENT} = Lastname_26024">
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:52.002" level="INFO">Current page contains text 'Lastname_26024'.</msg>
+<status status="PASS" endtime="20200628 20:36:52.002" starttime="20200628 20:36:51.995"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:52.003" starttime="20200628 20:36:51.994"></status>
+</kw>
+<kw type="foritem" name="${ELEMENT} = 1234526024">
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<doc>Verifies that current page contains ``text``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:52.011" level="INFO">Current page contains text '1234526024'.</msg>
+<status status="PASS" endtime="20200628 20:36:52.011" starttime="20200628 20:36:52.004"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:52.012" starttime="20200628 20:36:52.003"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:52.012" starttime="20200628 20:36:51.973"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:52.013" starttime="20200628 20:36:51.753"></status>
+</kw>
+<kw type="teardown" name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20200628 20:36:52.020" starttime="20200628 20:36:52.013"></status>
+</kw>
+<doc>Register through web portal, login with same credentials,validate uder details in user page</doc>
+<status status="PASS" endtime="20200628 20:36:52.021" critical="yes" starttime="20200628 20:36:35.659"></status>
+</test>
+<test id="s1-s1-s2-t2" name="Login With Invalid Credentials">
+<kw type="setup" name="Launch Browser" library="CommonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${URL}</arg>
+<arg>${Browser}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:52.025" level="INFO">Opening browser 'safari' to base url 'http://localhost:8080'.</msg>
+<status status="PASS" endtime="20200628 20:36:53.597" starttime="20200628 20:36:52.024"></status>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" endtime="20200628 20:36:53.630" starttime="20200628 20:36:53.598"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:53.631" starttime="20200628 20:36:52.023"></status>
+</kw>
+<kw name="Click Login Link" library="LoginPage">
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` appears on current page.</doc>
+<arguments>
+<arg>${Login_Button}</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:53.641" starttime="20200628 20:36:53.633"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${Login_Button}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:53.642" level="INFO">Clicking element 'css=[href*='login']'.</msg>
+<status status="PASS" endtime="20200628 20:36:53.663" starttime="20200628 20:36:53.641"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:53.664" starttime="20200628 20:36:53.632"></status>
+</kw>
+<kw name="Input Credentials" library="LoginPage">
+<arguments>
+<arg>invalid_username</arg>
+<arg>invalid_password</arg>
+</arguments>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Username_Locator}</arg>
+<arg>${Username}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:53.667" level="INFO">Typing text 'invalid_username' into text field 'username'.</msg>
+<status status="PASS" endtime="20200628 20:36:53.925" starttime="20200628 20:36:53.666"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Password_Locator}</arg>
+<arg>${Password}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:53.926" level="INFO">Typing text 'invalid_password' into text field 'password'.</msg>
+<status status="PASS" endtime="20200628 20:36:54.108" starttime="20200628 20:36:53.925"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:54.109" starttime="20200628 20:36:53.665"></status>
+</kw>
+<kw name="Select Submit" library="CommonKeywords">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${Submit_Button}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:54.111" level="INFO">Clicking element 'css=[type='submit']'.</msg>
+<status status="PASS" endtime="20200628 20:36:54.146" starttime="20200628 20:36:54.110"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:54.147" starttime="20200628 20:36:54.109"></status>
+</kw>
+<kw name="Validate Error Mesage" library="LoginPage">
+<arguments>
+<arg>You provided incorrect login details</arg>
+</arguments>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<doc>Waits until ``text`` appears on current page.</doc>
+<arguments>
+<arg>${Error_Message}</arg>
+<arg>20s</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:54.364" starttime="20200628 20:36:54.149"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:54.365" starttime="20200628 20:36:54.148"></status>
+</kw>
+<kw type="teardown" name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20200628 20:36:54.374" starttime="20200628 20:36:54.366"></status>
+</kw>
+<doc>Naviagte to login page, input invalid username and password,validate error message</doc>
+<status status="PASS" endtime="20200628 20:36:54.374" critical="yes" starttime="20200628 20:36:52.022"></status>
+</test>
+<test id="s1-s1-s2-t3" name="Verify Logout Functionality After Login">
+<kw type="setup" name="Launch Browser" library="CommonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${URL}</arg>
+<arg>${Browser}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:54.379" level="INFO">Opening browser 'safari' to base url 'http://localhost:8080'.</msg>
+<status status="PASS" endtime="20200628 20:36:55.957" starttime="20200628 20:36:54.378"></status>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" endtime="20200628 20:36:55.997" starttime="20200628 20:36:55.958"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:55.998" starttime="20200628 20:36:54.377"></status>
+</kw>
+<kw name="Login" library="LoginPage">
+<kw name="Click Login Link" library="LoginPage">
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` appears on current page.</doc>
+<arguments>
+<arg>${Login_Button}</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:56.010" starttime="20200628 20:36:56.003"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${Login_Button}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:56.012" level="INFO">Clicking element 'css=[href*='login']'.</msg>
+<status status="PASS" endtime="20200628 20:36:56.032" starttime="20200628 20:36:56.011"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:56.033" starttime="20200628 20:36:56.002"></status>
+</kw>
+<kw name="Input Credentials" library="LoginPage">
+<arguments>
+<arg>${Username}</arg>
+<arg>${Password}</arg>
+</arguments>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Username_Locator}</arg>
+<arg>${Username}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:56.037" level="INFO">Typing text 'Username_26024' into text field 'username'.</msg>
+<status status="PASS" endtime="20200628 20:36:56.295" starttime="20200628 20:36:56.036"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Password_Locator}</arg>
+<arg>${Password}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:56.297" level="INFO">Typing text 'Password_26024' into text field 'password'.</msg>
+<status status="PASS" endtime="20200628 20:36:56.478" starttime="20200628 20:36:56.296"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:56.479" starttime="20200628 20:36:56.034"></status>
+</kw>
+<kw name="Select Submit" library="CommonKeywords">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${Submit_Button}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:56.481" level="INFO">Clicking element 'css=[type='submit']'.</msg>
+<status status="PASS" endtime="20200628 20:36:56.524" starttime="20200628 20:36:56.481"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:56.525" starttime="20200628 20:36:56.480"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:56.525" starttime="20200628 20:36:56.000"></status>
+</kw>
+<kw name="Click Logout Link" library="UserPage">
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` appears on current page.</doc>
+<arguments>
+<arg>${Logout_Button}</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:56.739" starttime="20200628 20:36:56.527"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${Logout_Button}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:56.740" level="INFO">Clicking element 'css=[href*='/logout']'.</msg>
+<status status="PASS" endtime="20200628 20:36:56.758" starttime="20200628 20:36:56.740"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:56.759" starttime="20200628 20:36:56.526"></status>
+</kw>
+<kw name="Validate User Logged Out" library="UserPage">
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` appears on current page.</doc>
+<arguments>
+<arg>${Login_Button}</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:56.975" starttime="20200628 20:36:56.761"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:56.976" starttime="20200628 20:36:56.759"></status>
+</kw>
+<kw type="teardown" name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20200628 20:36:56.984" starttime="20200628 20:36:56.977"></status>
+</kw>
+<doc>Naviagte to login page, login,logout,validate user logged out</doc>
+<status status="PASS" endtime="20200628 20:36:56.985" critical="yes" starttime="20200628 20:36:54.376"></status>
+</test>
+<test id="s1-s1-s2-t4" name="Register with Invalid userDetails">
+<kw type="setup" name="Launch Browser" library="CommonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${URL}</arg>
+<arg>${Browser}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:56.989" level="INFO">Opening browser 'safari' to base url 'http://localhost:8080'.</msg>
+<status status="PASS" endtime="20200628 20:36:58.571" starttime="20200628 20:36:56.988"></status>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" endtime="20200628 20:36:58.607" starttime="20200628 20:36:58.572"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:58.608" starttime="20200628 20:36:56.987"></status>
+</kw>
+<kw name="Click Register Link" library="RegistrationPage">
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` appears on current page.</doc>
+<arguments>
+<arg>${Register_Button}</arg>
+</arguments>
+<status status="PASS" endtime="20200628 20:36:58.619" starttime="20200628 20:36:58.610"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${Register_Button}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:58.621" level="INFO">Clicking element 'css=[href*='register']'.</msg>
+<status status="PASS" endtime="20200628 20:36:58.640" starttime="20200628 20:36:58.620"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:58.641" starttime="20200628 20:36:58.608"></status>
+</kw>
+<kw name="Input Invalid Details To Register" library="RegistrationPage">
+<arguments>
+<arg>i</arg>
+<arg>i</arg>
+<arg>i</arg>
+<arg>i</arg>
+<arg>1</arg>
+</arguments>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Username_Locator}</arg>
+<arg>${Username}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:58.644" level="INFO">Typing text 'i' into text field 'username'.</msg>
+<status status="PASS" endtime="20200628 20:36:58.783" starttime="20200628 20:36:58.643"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Password_Locator}</arg>
+<arg>${Password}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:58.785" level="INFO">Typing text 'i' into text field 'password'.</msg>
+<status status="PASS" endtime="20200628 20:36:58.818" starttime="20200628 20:36:58.784"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Firstname_Locator}</arg>
+<arg>${FirstName}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:58.819" level="INFO">Typing text 'i' into text field 'firstname'.</msg>
+<status status="PASS" endtime="20200628 20:36:58.856" starttime="20200628 20:36:58.818"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Lastname_Locator}</arg>
+<arg>${LastName}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:58.857" level="INFO">Typing text 'i' into text field 'lastname'.</msg>
+<status status="PASS" endtime="20200628 20:36:58.894" starttime="20200628 20:36:58.856"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Phoneno_Locator}</arg>
+<arg>${PhoneNo:}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:58.896" level="INFO">Typing text '1' into text field 'phone'.</msg>
+<status status="PASS" endtime="20200628 20:36:58.942" starttime="20200628 20:36:58.895"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:58.943" starttime="20200628 20:36:58.642"></status>
+</kw>
+<kw name="Select Submit" library="CommonKeywords">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>${Submit_Button}</arg>
+</arguments>
+<msg timestamp="20200628 20:36:58.944" level="INFO">Clicking element 'css=[type='submit']'.</msg>
+<status status="PASS" endtime="20200628 20:36:58.981" starttime="20200628 20:36:58.944"></status>
+</kw>
+<status status="PASS" endtime="20200628 20:36:58.982" starttime="20200628 20:36:58.943"></status>
+</kw>
+<kw name="Validate Error Mesage" library="LoginPage">
+<arguments>
+<arg>Password should have min: x characters in length</arg>
+</arguments>
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<doc>Waits until ``text`` appears on current page.</doc>
+<arguments>
+<arg>${Error_Message}</arg>
+<arg>20s</arg>
+</arguments>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20200628 20:37:19.170" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20200628 20:37:19.170" starttime="20200628 20:37:19.071"></status>
+</kw>
+<msg timestamp="20200628 20:37:19.171" level="FAIL">Text 'Password should have min: x characters in length' did not appear in 20 seconds.</msg>
+<status status="FAIL" endtime="20200628 20:37:19.172" starttime="20200628 20:36:58.984"></status>
+</kw>
+<status status="FAIL" endtime="20200628 20:37:19.172" starttime="20200628 20:36:58.983"></status>
+</kw>
+<kw type="teardown" name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20200628 20:37:19.179" starttime="20200628 20:37:19.173"></status>
+</kw>
+<doc>Navigate to register page, Input invalid user details,Validate error message</doc>
+<status status="FAIL" endtime="20200628 20:37:19.179" critical="yes" starttime="20200628 20:36:56.986">Text 'Password should have min: x characters in length' did not appear in 20 seconds.</status>
+</test>
+<doc>UI Test Scenarios</doc>
+<status status="FAIL" endtime="20200628 20:37:19.181" starttime="20200628 20:36:35.492"></status>
+</suite>
+<status status="FAIL" endtime="20200628 20:37:19.186" starttime="20200628 20:36:34.913"></status>
+</suite>
+<status status="FAIL" endtime="20200628 20:37:19.190" starttime="20200628 20:36:34.888"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="6">Critical Tests</stat>
+<stat fail="1" pass="6">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="1" id="s1" name="APIAutomation" pass="6">APIAutomation</stat>
+<stat fail="1" id="s1-s1" name="TestSuites" pass="6">APIAutomation.TestSuites</stat>
+<stat fail="0" id="s1-s1-s1" name="API Test Suites" pass="3">APIAutomation.TestSuites.API Test Suites</stat>
+<stat fail="1" id="s1-s1-s2" name="UI Test Scenarios" pass="3">APIAutomation.TestSuites.UI Test Scenarios</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
