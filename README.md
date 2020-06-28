@@ -22,7 +22,7 @@
 # Approach to the implementation 
 
 * Using page Object design pattern for UI Automation
-* API methods are implemented using requests module 
+* API methods are implemented using `requests` module 
 * Apimethods.py file has necessary methods to drive API Automation
 * Unit test for API's are implemented as part of test cases through Acceptance Criteria
 * User Details are randomized using `String` Library 
