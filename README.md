@@ -48,11 +48,18 @@ robot -v Browser:Chrome -v Username:test -v Password:test *.robot
 3.Username should meet certain length constraints
 4.Phone number should meet certain length constraints
 5.Cannot update user details through PUT method (data.iteritems has to be replaced with data.items inorder to be Python 3.7 compatible)
+6.No successful message after valid user registration
+7.No error messages are displayed when user is registered without meeting type/length constraints for textfields
 
-  ``` 
-
-* Answers to the questions related testing and testability 
+``` 
 * Tell us what improvement would you propose for the app 
+```
+1.Only valid input fields should be accepted while user registration
+2.Password requirements should meet atleast alphabetic,numeric,special character combinations.
+3.User should be informed with success message after registration
+4.A small API fix for put_specific_user method (have to be Python 3.7 compatible ) when user tries to update user details with data.iteritems
+``` 
+
 * If you would be given a week to do quality assurance for this product, briefly plan the tasks based on your skills, knowledge and expertise 
 
  ``` 
@@ -66,4 +73,8 @@ If automation scripts are already in place run smoke and regression test suites.
 Create a bug report stating the priority and severity of the issues found and wait until the issues are fixed.
 Through automation we can run browser level tests,API level tests ,query the Database  and ensure whether the expected matches the actual result.
 ```
- 
+* How much time it took
+
+```
+Around 3 hours
+```
