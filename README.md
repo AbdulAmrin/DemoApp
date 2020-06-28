@@ -37,6 +37,10 @@ robot -v Browser:Chrome -v Username:test -v Password:test *.robot
 # Testing Task: 
 
 * Report of executed tests 
+ ``` 
+ Attached to github repository
+  ``` 
+  
 * Report of found issues/bugs 
 * Answers to the questions related testing and testability 
 * Exploratory Testing Report  
